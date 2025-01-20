@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{ book.book_name }}</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/content_page_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <h1>{{ book.book_name}}</h1>
+    <div class="auth-buttons">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="link">Log in</a>
+            <a href="{% url 'signup' %}" class="link">Sign up</a>
+        {% else %}
+            <div class="avatar-container">
+                <div class="avatar-circle" data-menu-id="avatar-menu">{{ user.get_username|slice:'1'|upper }}</div>
+                <div id="avatar-menu" class="avatar-dropdown-menu">
+                    <a href="{% url 'profile' user.username %}" class="dropdown-item">Profile</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">Log out</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</header>
+<div class="book-block">
+    <div class="book-cover-container">
+        {% if book.cover %}
+            <div class="book-cover">
+                <img src="{{ book.cover.url }}" class="book-cover" alt="{{ book.book_name }}">
+            </div>
+        {% else %}
+            <div class="book-cover">No cover available </div>
+        {% endif %}
+    </div>
+    <div class="book-info-container">
+        {% if user.is_authenticated %}
+            <button type="button" class="bookmark-button" data-book-id="{{ book.id }}" data-action="{% if is_bookmarked %}remove{% else %}add{% endif %}">
+                {% if is_bookmarked %}Delete from bookmark{% else %}Add to bookmark{% endif %}
+            </button>
+        {% else %}
+            <p class="bookmark-button-auth">Login to add to your bookmarks</p>
+        {% endif %}
+        <p>Author:<a href="{% url 'author_page' book.author.pk %}" class="card-author">
+            {{ book.author }}</a></p>
+        <p class="card-isbn">ISBN: {{book.isbn}}</p>
+        <p class="card-language">Book's language: {{ book.language }}</p>
+        <p class="card-genre">Book's genre:
+        {% for genre in book.genre.all %}
+            {{ genre.name }}{% if not forloop.last %}, {% else %}.{% endif %}
+        {% endfor %}</p>
+        <p class="card-description">{{ book.description }}</p>
+    </div>
+</div>
+<div class="review-header">
+    <h2>Reviews</h2>
+</div>
+{% if user.is_authenticated %}
+    <div class="review-container">
+        <form action="{% url 'add_review' book.pk %}" method="post" class="add_review">
+            {% csrf_token %}
+            {% if user_review %}
+            <textarea class="review-textarea" placeholder="Edit your review" name="text">{{ user_review.text }}</textarea>
+            <button type="submit" class="review-add-button">Edit Review</button>
+            {% else %}
+            <textarea class="review-textarea" placeholder="Enter your review" name="text"></textarea>
+            <button type="submit" class="review-add-button">Add Review</button>
+            {% endif %}
+        </form>
+    </div>
+{% else %}
+<div class="review-container">
+    <p>You need to <a href="{% url 'login' %}">log in</a> to add a review.</p>
+</div>
+{% endif %}
+{% if reviews %}
+    {% for review in reviews %}
+        <div class="review-container">
+            <div class="review">
+                <p class="review-user"><strong>{{ review.created_at }} {{ review.user.username }}:</strong></p>
+                <p class="review-text">{{ review.text }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+<div class="review-container">
+    <div class="review">
+        <p>No reviews yet.</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

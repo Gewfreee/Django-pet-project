@@ -1,0 +1,137 @@
+    .light-theme {
+        --body-background-color: white;
+        --body-color: black;
+        --auth-group-border: #dbdbdb;
+        --auth-group-background: #f9f9f9;
+        --submit-background-color: #47a76a;
+        --submit-hover-background-color: #62bd83;
+        --link-color: darkblue;
+        --error-message-color: #721c24;
+        --error-message-background-color: #f8d7da;
+    }
+
+    .dark-theme {
+        --body-background-color: #1e1e1e;
+        --body-color: white;
+        --auth-group-border: #6b6b6b;
+        --auth-group-background: #383838;
+        --submit-background-color: #47a76a;
+        --submit-hover-background-color: #62bd83;
+        --link-color: white;
+        --error-message-color: #721c24;
+        --error-message-background-color: #f8d7da;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--body-background-color);
+      color: var(--body-color);
+    }
+
+    .theme-toggle {
+        display: flex;
+        margin: 10px 15px;
+        float: right;
+    }
+
+    .theme-toggle-button {
+        border: 1px solid;
+        border-radius: 5px;
+        border-color: var(group-border-color);
+        cursor: pointer;
+    }
+
+    .theme-toggle-button:hover {
+        background-color: #E0E0E0;
+    }
+
+    .auth-form {
+      display: flex;
+      padding-top: 100px;
+      justify-content: flex-end;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .auth-group {
+      margin: 10px;
+      text-align: center;
+      padding: 15px 30px;
+      border: 2px solid;
+      border-radius: 10px;
+      border-color: var(--auth-group-border);
+      background-color: var(--auth-group-background);
+      max-width: 250px;
+      width: 70%;
+    }
+
+    .auth-form-header {
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-group {
+        margin: 10px 15px;
+    }
+
+    .forgot-password {
+        margin: 10px 15px;
+        float:right
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        box-shadow: 0 0 10px ;
+    }
+
+    .submit {
+        display: block;
+        margin: 10px auto;
+        padding: 5px 70px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        background-color: var(--submit-background-color);
+    }
+
+    .submit:hover {
+        background-color: var(--submit-hover-background-color);
+    }
+
+    .link {
+        color: var(--link-color);
+    }
+
+    .error-message {
+        padding: 8px;
+        border: 1px solid;
+        border-radius: 5px;
+        color: var(--error-message-color);
+        background-color: var(--error-message-background-color);
+    }
+
+    .close-button {
+        background: none;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--error-message-color);
+        cursor: pointer;
+        float: right;
+    }
+
+    .close-button:hover {
+        color: gray;
+        transition: 0.2s;

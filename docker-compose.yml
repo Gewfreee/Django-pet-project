@@ -1,0 +1,43 @@
+services:
+  weblibrary:
+    build: .
+    container_name: "weblibrary"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/weblibrary
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:17.0
+    container_name: "database"
+    env_file:
+      - .env.db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  celery:
+    build: .
+    command: celery -A core worker --loglevel=info --pool=gevent
+    env_file:
+      - .env
+    volumes:
+      - .:/weblibrary
+    depends_on:
+      - weblibrary
+      - redis
+      - db
+
+  redis:
+    container_name: "redis"
+    image: redis:alpine
+    restart: always
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

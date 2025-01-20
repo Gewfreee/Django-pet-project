@@ -1,0 +1,243 @@
+.light-theme {
+        --body-background-color: white;
+        --body-color: black;
+        --head-background-color: #cfcfcf;
+        --link-color: 0000f5;
+        --link-hover: darkblue;
+        --group-border-color: #dbdbdb;
+        --group-background-color: #f9f9f9;
+        --group-hover: #e0e0e0;
+        --avatar-color: white;
+        --card-title-hover: #858585:
+
+    }
+
+    .dark-theme {
+        --body-background-color: #1e1e1e;
+        --body-color: white;
+        --head-background-color: #2a323b;
+        --link-color: white;
+        --link-hover: #E0E0E0;
+        --group-border-color: #6b6b6b;
+        --group-background-color: #383838;
+        --group-hover: #858585;
+        --avatar-color: black;
+        --card-title-hover: #e0e0e0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--body-background-color);
+        color: var(--body-color);
+    }
+
+    .main-header {
+        display : block;
+        background-color: var(--head-background-color);
+        border-bottom: 1px solid;
+    }
+
+    h1 {
+        margin: 10px 10px;
+        margin-top: 0px;
+    }
+
+    .theme-toggle {
+        display: flex;
+        margin: 10px 15px;
+        float: right;
+    }
+
+    .theme-toggle-button {
+        border: 1px solid;
+        border-radius: 5px;
+        border-color: var(group-border-color);
+        cursor: pointer;
+    }
+
+    .theme-toggle-button:hover {
+        background-color: #E0E0E0;
+    }
+
+    .auth-buttons {
+        display: flex;
+        margin: 0px 10px;
+        justify-content: flex-end;
+    }
+
+    .avatar-container {
+        margin: 10px 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .avatar-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--avatar-color);
+        color: (--body-color);
+        font-size: 1.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 1;
+     }
+
+     .avatar-circle:hover {
+        opacity: 0.8;
+    }
+
+    .avatar-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--group-background-color);
+        border: 1px solid;
+        border-color: var(--group-border-color);
+        border-radius: 5px;
+        z-index: 100;
+        display: none;
+        min-width: 150px;
+        padding: 5px 0;
+    }
+
+    .dropdown-item {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        color: var(--body-color);
+        white-space: nowrap;
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--group-hover);
+   }
+
+    .link {
+        margin: 15px 15px;
+        color: var(--body-color);
+    }
+
+    .link:hover {
+        color: var(--link-hover);
+    }
+
+
+    .book-block {
+        margin: 20px 20px;
+        padding-left: 10px;
+        display: flex;
+        border: 1px solid;
+        border-radius: 5px;
+        border-color: var(--group-border-color);
+        background-color: var(--group-background-color);
+    }
+
+    .book-cover-container {
+        padding: 10px 10px;
+        width: 30%;
+    }
+
+    .book-cover {
+        max-width: 350px;
+        height: auto;
+        overflow: auto;
+    }
+
+    .book-info-container {
+        padding: 10px 10px;
+        width: 70%;
+        text-indent: 1em;
+        font-size: 1.3em;
+    }
+
+    .author-info-container {
+        padding: 10px 10px;
+        text-indent: 1em;
+        font-size: 1.3em;;
+    }
+
+    .book-info-container a{
+        text-decoration: none;
+        color: var(--body-color);
+    }
+
+    .bookmark-button {
+        padding: 3px 3px;
+        display: flex;
+        float: right;
+        border-radius: 5px;
+    }
+
+    .bookmark-button:hover {
+        background-color: #E0E0E0
+    }
+
+    .bookmark-button-auth {
+        margin-top: 15px;
+        padding: 3px 3px;
+        display: flex;
+        float: right;
+        border: 1px solid;
+        border-radius: 5px;
+        text-indent: 0px;
+    }
+
+    .card-author:hover {
+        opacity: 0.6;
+    }
+
+    .review-header {
+        margin: 0px 20px;
+        padding: 10px 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .review-container {
+        margin: 0px 20px;
+        margin-bottom: 20px;
+        padding: 10px 10px;
+        padding-left: 20px;
+        border: 1px solid;
+        border-radius: 5px;
+        border-color: var(--group-border-color);
+        background-color: var(--group-background-color);
+    }
+
+    .review-container a {
+        color: var(--link-color);
+    }
+
+    .review-container a:hover {
+        color: var(--link-hover);
+    }
+
+    .review-textarea {
+        background-color: var(--group-background-color);
+        color: var(--body-color);
+        width: 1385px;
+        height: auto;
+        border-radius: 5px;
+        font-size: 1.1em;
+        overflow: auto;
+    }
+
+    .review-textarea::placeholder {
+        font-family: 'Times New Roman';
+        color: var(--body-color);
+    }
+
+    .review-add-button {
+        margin: 20px 0px;
+    }
+
+    .review {
+
+    }

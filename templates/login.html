@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Log in</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/auth_style.css' %}">
+<script>
+    function del() {
+        var elem = document.getElementById("error-message");
+        elem.remove();
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="auth-form">
+  <div class="auth-group">
+      <div class="auth-form-header">
+          <h2>Log in to Library</h2>
+      </div>
+      <form action="{% url 'login' %}" id="login" method="post">
+          {% csrf_token %}
+          {% if form.errors %}
+            <div class="error-message" id="error-message">
+                <button class="close-button" type="button" onclick="del()">
+                    <span aria-hidden="true">x</span>
+                </button>
+                {% for error in form.non_field_errors %}
+                    <a>{{ error }}</a>
+                {% endfor %%}
+            </div>
+            {% endif %}
+          <div class="form-group">
+              {{ form.username }}
+          </div>
+          <div class="forgot-password">
+              <a class="link" href="{% url 'forgot_password' %}">Forgot password?</a>
+          </div>
+          <div class="form-group">
+              {{ form.password }}
+          </div>
+          <div class="form-group">
+              <input class="submit" type="submit" value="Log in">
+          </div>
+      </form>
+    </div>
+    <div class="auth-group">
+        <a>Don't have an account? </a>
+        <a class="link" href="{% url 'signup' %}">Sign up</a>
+    </div>
+</div>
+{% endblock %}

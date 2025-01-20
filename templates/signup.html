@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Sign up</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/auth_style.css' %}">
+<script>
+    function del() {
+        var elem = document.getElementById("error-message");
+        elem.remove();
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="auth-form">
+    <div class="auth-group">
+        <div class="auth-form-header">
+            <h2>Sign Up to Library</h2>
+        </div>
+            <form action="{% url 'signup' %}" method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="error-message" id="error-message">
+                        <button class="close-button" type="button" onclick="del()">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                        {% for error in form.username.errors %}
+                            <a>{{ error }}</a><br>
+                        {% endfor %%}
+                        {% for error in form.email.errors %}
+                            <a>{{ error }}</a><br>
+                        {% endfor %%}
+                        {% for error in form.password2.errors %}
+                            <a>{{ error }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    {{ form.password1 }}
+                </div>
+                <div class="form-group">
+                    {{ form.password2 }}
+                </div>
+                <div class="form-group">
+                    <input class="submit" type="submit" value="Sign up">
+                </div>
+            </form>
+    </div>
+    <div class="auth-group">
+        <a>Already registered? </a>
+        <a class="link" href="{% url 'login' %}">Log in</a>
+    </div>
+</div>
+{% endblock %}

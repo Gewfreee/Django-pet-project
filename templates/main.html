@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Library website</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <h1>Welcome to the Library</h1>
+    <div class="auth-buttons">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="link">Log in</a>
+            <a href="{% url 'signup' %}" class="link">Sign up</a>
+        {% else %}
+            <div class="avatar-container">
+                <div class="avatar-circle" data-menu-id="avatar-menu">{{ user.get_username|slice:'1'|upper }}</div>
+                <div id="avatar-menu" class="avatar-dropdown-menu">
+                    <a href="{% url 'profile' user.username %}" class="dropdown-item">Profile</a>
+                    <a href="{% url 'logout' %}" class="dropdown-item">Log out</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</header>
+<div class="search-container">
+    <form action="{% url 'book' %}" method="GET" class="form-search">
+        <div class="input-group">
+            <input id="search_query" type="text" class="search-input"
+                   name="q" placeholder="Search by ISBN, title, author or genre" value="{{ request.GET.q }}">
+            <span class="input-group-button">
+                <button id="search-button" class="search-button" type="submit">Search</button>
+            </span>
+        </div>
+    </form>
+</div>
+{% if page_obj %}
+<div class="book-block">
+    {% for book in page_obj %}
+        <div class="book-block-row">
+            <div class="book-card-cover">
+                {% if book.cover %}
+                    <div class="book-cover-container">
+                        <a href="{% url 'book_page' book.book_name %}"><img src="{{ book.cover.url }}" class="book-cover" alt="{{ book.book_name }}"></a>
+                    </div>
+                {% else %}
+                    <div class="book-cover-container">No cover available</div>
+                {% endif %}
+            </div>
+            <div class="book-card">
+                <div class="card-header">
+                    <a href="{% url 'book_page' book.book_name %}"><h2 class="card-title">{{ book.book_name }}</h2></a>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <p>Author:<a href="{% url 'book' %}?q={{ book.author }}" class="card-author">
+                            {{ book.author }}</a></p>
+                        <p class="card-isbn">ISBN: {{book.isbn}}</p>
+                        <p class="card-language">Book's language: {{ book.language }}</p>
+                        <p class="card-genre">Book's genre:
+                        {% for genre in book.genre.all %}
+                            {{ genre.name }}{% if not forloop.last %}, {% else %}.{% endif %}
+                        {% endfor %}</p>
+                    </div>
+                    <div class="card-description">
+                        <p class="card-text">{{ book.description|truncatewords:80 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="book-block">
+    No results found.
+</div>
+{% endif %}
+
+{% endblock %}
