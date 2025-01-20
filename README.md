@@ -66,4 +66,8 @@ Pet-project, создаваемый в целях изучения фреймв�
 python manage.py createsuperuser --username <your_superuser_name>
 ```
 ## Скрины:
-![Главаная страница]()
+Главная страница
+![Главаная страница](https://github.com/Gewfreee/Django-pet-project/blob/main/images/Снимок%20экрана%202025-01-16%20024021.png)
+
+Профиль
+![Профиль](https://github.com/Gewfreee/Django-pet-project/blob/main/images/Снимок%20экрана%202025-01-21%20005435.png)
