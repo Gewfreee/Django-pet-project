@@ -60,7 +60,6 @@ class Book(models.Model):
 
 class User(AbstractUser):
     bookmarks = models.ManyToManyField('Book', blank=True, related_name='bookmarked_by')
-    bio = models.TextField(blank=True)
 
 
 class Review(models.Model):
