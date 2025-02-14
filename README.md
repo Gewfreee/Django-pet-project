@@ -65,6 +65,24 @@ Pet-project, создаваемый в целях изучения фреймв�
 ```bash
 python manage.py createsuperuser --username <your_superuser_name>
 ```
+
+## API:
+- Получение ключей:
+    ```bash
+    https://.../token?username='your_username'&password='your_password'
+    ```
+    Будет получено два токена acsess и refresh
+
+- Использование токена:
+    ```bash
+    https://.../api/books?authorization='Bearer <your_accesstoken>'
+    ```
+    
+- Обновление токена:
+    ```bash
+    https://.../token/refresh/?refresh='your_refreshtoken'
+    ```
+
 ## Скрины:
 Главная страница
 ![Главаная страница](https://github.com/Gewfreee/Django-pet-project/blob/main/images/Снимок%20экрана%202025-01-16%20024021.png)
