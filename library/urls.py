@@ -19,7 +19,5 @@ urlpatterns = [
     path('api/genres/<int:pk>/', views.genre_detail, name='genre_detail'),
     path('api/languages/', views.language_list, name='language_list'),
     path('api/languages/<int:pk>/', views.language_detail, name='language_detail'),
-    path('api/users/', views.user_list, name='user_list'),
-    path('api/users/<int:pk>/', views.user_detail, name='user_detail'),
 ]
 
