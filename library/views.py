@@ -4,10 +4,11 @@ from django.http import JsonResponse
 from .models import Book, Author, Genre, Language, User
 from django.db.models import Q
 from .forms import ReviewForm, AuthorForm
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from . import serializers
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.core.cache import cache
 
 
@@ -98,8 +99,10 @@ def add_review(request, pk):
 
     return render(request, 'book_page.html', {'book': book, 'reviews': reviews})
 
+
 # API views
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def book_list(request):
     books = Book.objects.all()
@@ -107,6 +110,7 @@ def book_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
@@ -114,6 +118,7 @@ def book_detail(request, pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def author_list(request):
     authors = Author.objects.all()
@@ -121,6 +126,7 @@ def author_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def author_detail(request, pk):
     author = get_object_or_404(Author, pk=pk)
@@ -128,6 +134,7 @@ def author_detail(request, pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def genre_list(request):
     genres = Genre.objects.all()
@@ -135,6 +142,7 @@ def genre_list(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def genre_detail(request, pk):
     genre = get_object_or_404(Genre, pk=pk)
@@ -142,6 +150,7 @@ def genre_detail(request, pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def language_list(request):
     languages = Language.objects.all()
@@ -150,23 +159,9 @@ def language_list(request):
 
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def language_detail(request, pk):
     language = get_object_or_404(Language, pk=pk)
     serializer = serializers.LanguageSerializer(language)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def user_list(request):
-    users = User.objects.all()
-    serializer = serializers.UserSerializer(users, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def user_detail(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    serializer = serializers.UserSerializer(user)
     return Response(serializer.data)
